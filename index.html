@@ -32,7 +32,7 @@
 			render: function(){
 				var template = _.template($('#first_template').html(), {});
 				this.$el.html(template);
-			},
+			}
 		});
 		
 		SecondView = Backbone.View.extend({
@@ -67,7 +67,7 @@
 
 		var router = new MyRouter();
 		Backbone.history.start();
-		
+
 	</script>
 
 </body>
