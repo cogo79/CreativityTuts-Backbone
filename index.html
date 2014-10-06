@@ -7,17 +7,21 @@
 </head>
 <body>
 
-	<script type="text/template" id="task_template">
-		<label>Task: </label>
-		<input type="text" id="task_desc" />
-		<input type="button" value ="Add Task" id="btn" />
+	<script type="text/template" id="first_template">
+		<label>My 1st View</label>
+		<a href="#second">Go to 2nd View</a>
+	</script>
+
+	<script type="text/template" id="second_template">
+		<label>My 2nd View</label>
+		<a href="#first">Go to 1st View</a>
 	</script>
 
 	<div id="container"></div>
 
 	<script type="text/javascript">
 
-		Task = Backbone.View.extend({
+		FirstView = Backbone.View.extend({
 			
 			el : $('#container'),
 
@@ -26,20 +30,44 @@
 			},
 
 			render: function(){
-				var template = _.template($('#task_template').html(), {});
+				var template = _.template($('#first_template').html(), {});
 				this.$el.html(template);
 			},
+		});
+		
+		SecondView = Backbone.View.extend({
+			
+			el : $('#container'),
 
-			events:{
-				"click input[type=button]" : "addTask"
+			initialize : function(){
+				this.render();
 			},
 
-			addTask: function(){
-				alert($('#task_desc').val() + ' task has been added');
+			render: function(){
+				var template = _.template($('#second_template').html(), {});
+				this.$el.html(template);
+			},
+		});
+
+		MyRouter = Backbone.Router.extend({
+			routes:{
+				"" : "firstPage",
+				"first" : "firstPage",
+				"second" : "secondPage"
+			},
+
+			firstPage: function(){
+				new FirstView();
+			},
+
+			secondPage: function(){
+				new SecondView();
 			}
 		});
-		var task = new Task();
 
+		var router = new MyRouter();
+		Backbone.history.start();
+		
 	</script>
 
 </body>
