@@ -7,66 +7,25 @@
 </head>
 <body>
 
-	<script type="text/template" id="first_template">
-		<label>My 1st View</label>
-		<a href="#second">Go to 2nd View</a>
-	</script>
-
-	<script type="text/template" id="second_template">
-		<label>My 2nd View</label>
-		<a href="#first">Go to 1st View</a>
-	</script>
-
-	<div id="container"></div>
-
 	<script type="text/javascript">
 
-		FirstView = Backbone.View.extend({
-			
-			el : $('#container'),
-
-			initialize : function(){
-				this.render();
-			},
-
-			render: function(){
-				var template = _.template($('#first_template').html(), {});
-				this.$el.html(template);
-			}
-		});
-		
-		SecondView = Backbone.View.extend({
-			
-			el : $('#container'),
-
-			initialize : function(){
-				this.render();
-			},
-
-			render: function(){
-				var template = _.template($('#second_template').html(), {});
-				this.$el.html(template);
-			},
-		});
-
-		MyRouter = Backbone.Router.extend({
-			routes:{
-				"" : "firstPage",
-				"first" : "firstPage",
-				"second" : "secondPage"
-			},
-
-			firstPage: function(){
-				new FirstView();
-			},
-
-			secondPage: function(){
-				new SecondView();
+		Student = Backbone.Model.extend({
+			defaults:{
+				name: "",
+				age: ""
 			}
 		});
 
-		var router = new MyRouter();
-		Backbone.history.start();
+		ClassRoom = Backbone.Collection.extend({
+			model: Student
+		});
+
+		var student1 = new Student({name:"naveed", age:"26"});
+		var student2 = new Student({name:"steve", age:"30"});
+		var student3 = new Student({name:"simon", age:"28"});
+
+		var collection = new ClassRoom([student1, student2, student3]);
+
 
 	</script>
 
